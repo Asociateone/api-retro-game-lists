@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+    db:
+        container_name: db
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+            MYSQL_DATABASE: retro_game_list
+            MYSQL_USER: User
+            MYSQL_PASSWORD: Password
+        ports:
+            - "3306:3306"
