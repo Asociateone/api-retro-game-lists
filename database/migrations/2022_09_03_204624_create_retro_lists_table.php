@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('retro_lists', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
