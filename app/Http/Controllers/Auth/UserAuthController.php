@@ -2,44 +2,37 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\Auth\UserAuthResource;
 
 class UserAuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request): UserAuthResource
     {
-        $data = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required'
-        ]);
+        $request = $request->validated();
 
-        $data['password'] = bcrypt($request->password);
+        $request['password'] = bcrypt($request['password']);
 
-        $user = User::create($data);
+        $user = User::create($request);
 
         $token = $user->createToken('API Token')->accessToken;
 
-        return response([ 'user' => $user, 'token' => $token]);
+        return UserAuthResource::make($token);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request): UserAuthResource|string
     {
-        $data = $request->validate([
-            'email' => 'email|required',
-            'password' => 'required'
-        ]);
+        $data = $request->validated();
 
         if (!auth()->attempt($data)) {
-            return response(['error_message' => 'Incorrect Details.
-            Please try again']);
+            return response(['error_message' => 'Incorrect Details. Please try again']);
         }
 
         $token = auth()->user()->createToken('API Token')->accessToken;
 
-        return response(['user' => auth()->user(), 'token' => $token]);
-
+        return UserAuthResource::make($token);
     }
 }
