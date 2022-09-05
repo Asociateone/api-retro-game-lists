@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RetroListRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\RetroListResource;
 
 class RetroListsController extends Controller
 {
     public function index()
     {
-        return "test world";
+        return RetroListResource::collection(auth()->user()->retroList()->get());
     }
 
     public function store(RetroListRequest $request)
     {
-        return auth()->user()->retroList()->create($request->validated());
+        return RetroListResource::make(auth()->user()->retroList()->create($request->validated()));
     }
 }
