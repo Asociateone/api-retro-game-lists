@@ -26,7 +26,18 @@ class RetroListsController extends Controller
         } else {
             abort(403,'you are not allowed to do this!');
         }
-        
+
         return RetroListResource::make($list);
+    }
+
+    public function destroy(RetroLists $list)
+    {
+        if(auth()->user()->id === $list->user_id){
+            $list->delete();
+        } else {
+            abort(403,'you are not allowed to do this!');
+        }
+
+        return response('The list has been deleted');
     }
 }
