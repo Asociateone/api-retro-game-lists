@@ -17,7 +17,7 @@ Route::post('/register', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
 route::middleware('auth:api')->group(function () {
-    Route::get('lists', [RetroListsController::class, 'index']);
+    Route::apiResource('lists', RetroListsController::class);
 });
 
 
