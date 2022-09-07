@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function retroList(): hasMany
     {
-        return $this->hasMany(RetroLists::class);
+        return $this->hasMany(Lists::class);
     }
 }

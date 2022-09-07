@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\UserAuthController;
-use App\Http\Controllers\RetroListsController;
+use App\Http\Controllers\GameItemsController;
+use App\Http\Controllers\ListsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,8 @@ Route::post('/register', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
 route::middleware('auth:api')->group(function () {
-    Route::apiResource('lists', RetroListsController::class);
+    Route::apiResource('lists', ListsController::class);
+    Route::apiResource('games', GameItemsController::class);
 });
 
 
