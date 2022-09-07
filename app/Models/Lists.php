@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Lists extends Model
@@ -21,5 +22,10 @@ class Lists extends Model
     public function users(): hasOne
     {
         return $this->hasOne(User::class);
+    }
+
+    public function games(): HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 }
