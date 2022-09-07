@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RetroListResource extends JsonResource
+class ListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
