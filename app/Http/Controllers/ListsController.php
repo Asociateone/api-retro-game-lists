@@ -19,10 +19,10 @@ class ListsController extends Controller
         return ListResource::make(auth()->user()->retroList()->create($request->validated()));
     }
 
-    public function show(Lists $list): ListResource
+    public function show(Lists $list)
     {
         if(auth()->user()->id === $list->user_id){
-            return ListResource::make($list);
+            return $list->with('games')->get();
         } else {
             abort(403,'you are not allowed to do this!');
         }
