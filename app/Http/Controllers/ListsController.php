@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ListRequest;
 use App\Http\Resources\ListResource;
 use App\Models\Lists;
+use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ListsController extends Controller
@@ -48,5 +49,16 @@ class ListsController extends Controller
         }
 
         return response()->json(['message' => 'The list has been deleted']);
+    }
+
+    public function storeItem(Request $request, Lists $list)
+    {
+//        dd($request);
+        return dd($list->games()->sync($request->id, ));
+    }
+
+    public function removeItem(Request $request, Lists $list)
+    {
+        return $list->games()->detach($request->id);
     }
 }
