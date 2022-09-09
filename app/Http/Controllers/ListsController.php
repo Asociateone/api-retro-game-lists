@@ -22,7 +22,7 @@ class ListsController extends Controller
     public function show(Lists $list)
     {
         if(auth()->user()->id === $list->user_id){
-            return $list->with('games')->get();
+            return $list->games()->get();
         } else {
             abort(403,'you are not allowed to do this!');
         }
