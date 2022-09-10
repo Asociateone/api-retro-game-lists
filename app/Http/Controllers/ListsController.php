@@ -53,8 +53,13 @@ class ListsController extends Controller
 
     public function storeItem(Request $request, Lists $list)
     {
-//        dd($request);
-        return dd($list->games()->sync($request->id, ));
+        $item = $list->games()->sync([$request->game_id], false);
+
+        if (empty($item['attached'])) {
+            return response()->json(['message' => 'Item already on the list']);
+        } else {
+            return response()->json(['message' => 'Item added to the list']);
+        }
     }
 
     public function removeItem(Request $request, Lists $list)
