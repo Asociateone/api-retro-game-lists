@@ -11,13 +11,13 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('lists', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('url');
+            $table->string('cover_image');
             $table->timestamps();
         });
     }
@@ -27,8 +27,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('lists');
+        Schema::dropIfExists('games');
     }
 };

@@ -18,8 +18,10 @@ Route::post('/register', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
 route::middleware('auth:api')->group(function () {
+    Route::post('lists/{list}', [ListsController::class, 'storeItem'] );
+    Route::delete('lists/{list}/item', [ListsController::class, 'removeItem'] );
     Route::apiResource('lists', ListsController::class);
-    Route::apiResource('games', GameItemsController::class);
+//    Route::apiResource('games', GameItemsController::class);
 });
 
 
